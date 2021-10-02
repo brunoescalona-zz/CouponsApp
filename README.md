@@ -65,16 +65,22 @@ It will be used to fetch all the coupons available
          "image_url":"https://www.example.com/image.jpg",
          "is_enabled":false,
          "end_date":"2012-04-23T18:25:43.511Z",
+         "discount":{
+            "value": 20,
+            "special": "Special coupon!"
+         },
          "limits":{
             "title":"Limited to 4kg",
             "description":"Can be used only once"
          },
          "related_products":[
             {
+               "id":0,
                "name":"Apple",
                "icon_url":"https://www.example.com/icon_apple.jpg"
             },
             {
+               "id":1,
                "name":"Banana",
                "icon_url":"https://www.example.com/icon_banana.jpg"
             }
@@ -87,7 +93,7 @@ It will be used to fetch all the coupons available
    ]
 }
 ```
-Not mandatory fields `related_products`
+Not mandatory fields `related_products` and `discount.special`
 
 
 ####  Change state of the coupon
@@ -109,16 +115,22 @@ Used to change the state of the coupon, if the coupon is enabled it will be chan
    "image_url":"https://www.example.com/image.jpg",
    "is_enabled":true,
    "end_date":"2012-04-23T18:25:43.511Z",
+   "discount":{
+       "value": 20,
+       "special": "Special coupon!"
+    },
    "limits":{
       "title":"Limited to 4kg",
       "description":"Can be used only once"
    },
    "related_products":[
       {
+         "id":0,
          "name":"Apple",
          "icon_url":"https://www.example.com/icon_apple.jpg"
       },
       {
+         "id":1,
          "name":"Banana",
          "icon_url":"https://www.example.com/icon_banana.jpg"
       }
@@ -128,4 +140,4 @@ Used to change the state of the coupon, if the coupon is enabled it will be chan
 }
 ```
 
-Not mandatory fields `related_products`
+Not mandatory fields `related_products` and `discount.special`
