@@ -19,22 +19,27 @@ object CouponsResponseDtoMock {
                 discount = DiscountDto(value = 25, special = null),
                 relatedProducts = listOf(
                     RelatedProductDto(
+                        id = 0,
                         name = "Strawberries",
                         iconUrl = "https://content.fake.com/image.png"
                     ),
                     RelatedProductDto(
+                        id = 1,
                         name = "Oranges",
                         iconUrl = "https://content.fake.com/image.png"
                     ),
                     RelatedProductDto(
+                        id = 2,
                         name = "Bananas",
                         iconUrl = "https://content.fake.com/image.png"
                     ),
                     RelatedProductDto(
+                        id = 3,
                         name = "Watermelons",
                         iconUrl = "https://content.fake.com/image.png"
                     ),
                     RelatedProductDto(
+                        id = 4,
                         name = "Apples",
                         iconUrl = "https://content.fake.com/image.png"
                     )
@@ -66,22 +71,27 @@ object CouponsResponseDtoMock {
                 discount = DiscountDto(value = 20, special = null),
                 relatedProducts = listOf(
                     RelatedProductDto(
+                        id = 1,
                         name = "Strawberries",
                         iconUrl = "https://content.fake.com/image.png"
                     ),
                     RelatedProductDto(
+                        id = 2,
                         name = "Oranges",
                         iconUrl = "https://content.fake.com/image.png"
                     ),
                     RelatedProductDto(
+                        id = 3,
                         name = "Bananas",
                         iconUrl = "https://content.fake.com/image.png"
                     ),
                     RelatedProductDto(
+                        id = 4,
                         name = "Watermelons",
                         iconUrl = "https://content.fake.com/image.png"
                     ),
                     RelatedProductDto(
+                        id = 5,
                         name = "Apples",
                         iconUrl = "https://content.fake.com/image.png"
                     )
