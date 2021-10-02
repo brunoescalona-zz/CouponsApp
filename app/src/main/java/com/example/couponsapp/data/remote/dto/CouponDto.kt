@@ -10,6 +10,7 @@ data class CouponDto(
     @SerializedName("is_enabled") val isEnabled: Boolean,
     @SerializedName("end_date") val date: String,
     @SerializedName("limits") val limits: LimitsDto,
+    @SerializedName("discount") val discount: DiscountDto,
     @SerializedName("related_products") val relatedProducts: List<RelatedProductDto>?,
     @SerializedName("product_code") val productCode: Long,
     @SerializedName("conditions") val conditions: String

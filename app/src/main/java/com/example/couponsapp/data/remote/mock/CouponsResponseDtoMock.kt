@@ -1,9 +1,6 @@
 package com.example.couponsapp.data.remote.mock
 
-import com.example.couponsapp.data.remote.dto.CouponDto
-import com.example.couponsapp.data.remote.dto.CouponsResponseDto
-import com.example.couponsapp.data.remote.dto.LimitsDto
-import com.example.couponsapp.data.remote.dto.RelatedProductDto
+import com.example.couponsapp.data.remote.dto.*
 import java.time.LocalDate
 
 object CouponsResponseDtoMock {
@@ -19,6 +16,7 @@ object CouponsResponseDtoMock {
                 isEnabled = false,
                 date = LocalDate.now().plusDays(5).toString(),
                 limits = LimitsDto(title = "Limited to fruits", description = "Only one usage"),
+                discount = DiscountDto(value = 25, special = null),
                 relatedProducts = listOf(
                     RelatedProductDto(
                         name = "Strawberries",
@@ -52,6 +50,7 @@ object CouponsResponseDtoMock {
                 isEnabled = false,
                 date = LocalDate.now().plusDays(3).toString(),
                 limits = LimitsDto(title = "Limited to 4kg", description = "Only one usage"),
+                discount = DiscountDto(value = 50, special = "Special coupon"),
                 relatedProducts = null,
                 productCode = 22222222L,
                 conditions = "Valid only until the end of the month. Valid only in Spain"
@@ -64,6 +63,7 @@ object CouponsResponseDtoMock {
                 isEnabled = false,
                 date = LocalDate.now().plusDays(8).toString(),
                 limits = LimitsDto(title = "Limited to vegetables", description = "Only one usage"),
+                discount = DiscountDto(value = 20, special = null),
                 relatedProducts = listOf(
                     RelatedProductDto(
                         name = "Strawberries",
@@ -97,6 +97,7 @@ object CouponsResponseDtoMock {
                 isEnabled = false,
                 date = LocalDate.now().plusDays(6).toString(),
                 limits = LimitsDto(title = "Bakery section", description = "Only one usage"),
+                discount = DiscountDto(value = 20, special = null),
                 relatedProducts = null,
                 productCode = 44444444L,
                 conditions = "Valid only until the end of the month. Valid only in Spain"
@@ -109,6 +110,7 @@ object CouponsResponseDtoMock {
                 isEnabled = false,
                 date = LocalDate.now().plusDays(1).toString(),
                 limits = LimitsDto(title = "Limited to 6 units", description = "Only one usage"),
+                discount = DiscountDto(value = 20, special = null),
                 relatedProducts = null,
                 productCode = 55555555L,
                 conditions = "Valid only until the end of the month. Valid only in Spain"

@@ -65,6 +65,10 @@ It will be used to fetch all the coupons available
          "image_url":"https://www.example.com/image.jpg",
          "is_enabled":false,
          "end_date":"2012-04-23T18:25:43.511Z",
+         "discount":{
+            "value": 20,
+            "special": "Special coupon!"
+         },
          "limits":{
             "title":"Limited to 4kg",
             "description":"Can be used only once"
@@ -87,7 +91,7 @@ It will be used to fetch all the coupons available
    ]
 }
 ```
-Not mandatory fields `related_products`
+Not mandatory fields `related_products` and `discount.special`
 
 
 ####  Change state of the coupon
@@ -109,6 +113,10 @@ Used to change the state of the coupon, if the coupon is enabled it will be chan
    "image_url":"https://www.example.com/image.jpg",
    "is_enabled":true,
    "end_date":"2012-04-23T18:25:43.511Z",
+   "discount":{
+       "value": 20,
+       "special": "Special coupon!"
+    },
    "limits":{
       "title":"Limited to 4kg",
       "description":"Can be used only once"
@@ -128,4 +136,4 @@ Used to change the state of the coupon, if the coupon is enabled it will be chan
 }
 ```
 
-Not mandatory fields `related_products`
+Not mandatory fields `related_products` and `discount.special`
