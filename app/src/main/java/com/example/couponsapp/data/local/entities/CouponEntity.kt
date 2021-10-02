@@ -11,7 +11,7 @@ data class CouponEntity(
     @ColumnInfo(name = "title") val title: String,
     @ColumnInfo(name = "description") val description: String,
     @ColumnInfo(name = "image_url") val imageUrl: String,
-    @ColumnInfo(name = "is_enabled") val isEnabled: Boolean,
+    @ColumnInfo(name = "state") val state: StateEntity,
     @ColumnInfo(name = "end_date") val date: String,
     @Embedded(prefix = "limits") val limits: LimitsEntity,
     @Embedded(prefix = "discount") val discount: DiscountEntity,
