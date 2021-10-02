@@ -13,10 +13,9 @@ data class CouponEntity(
     @ColumnInfo(name = "image_url") val imageUrl: String,
     @ColumnInfo(name = "is_enabled") val isEnabled: Boolean,
     @ColumnInfo(name = "end_date") val date: String,
-    @Embedded(prefix = "limits") @ColumnInfo(name = "limits") val limits: LimitsEntity,
-    @Embedded(prefix = "discount") @ColumnInfo(name = "discount") val discount: DiscountEntity,
-    @Embedded(prefix = "related") @ColumnInfo(name = "related_product")
-    val relatedProducts: List<RelatedProductEntity>?,
+    @Embedded(prefix = "limits") val limits: LimitsEntity,
+    @Embedded(prefix = "discount") val discount: DiscountEntity,
+    @ColumnInfo(name = "related_products") val relatedProducts: List<RelatedProductEntity>?,
     @ColumnInfo(name = "product_code") val productCode: Long,
     @ColumnInfo(name = "conditions") val conditions: String
 )
