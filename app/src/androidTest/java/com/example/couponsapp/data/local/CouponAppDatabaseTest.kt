@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.runner.AndroidJUnit4
+import com.example.couponsapp.data.local.entities.StateEntity
 import com.example.couponsapp.data.local.mock.CouponEntitiesMock
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.flow.collect
@@ -59,7 +60,7 @@ class CouponAppDatabaseTest {
     fun test_enable_coupon_and_get_all() = runBlocking {
         val couponEntities = CouponEntitiesMock.VALUE.toTypedArray()
         couponDao.insertAll(*couponEntities)
-        val couponEnabled = CouponEntitiesMock.VALUE.last().copy(isEnabled = true)
+        val couponEnabled = CouponEntitiesMock.VALUE.last().copy(state = StateEntity.Enabled)
         couponDao.insert(couponEnabled)
 
         val expectedEntities = CouponEntitiesMock.VALUE

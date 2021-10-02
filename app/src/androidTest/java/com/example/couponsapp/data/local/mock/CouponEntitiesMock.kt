@@ -1,9 +1,6 @@
 package com.example.couponsapp.data.local.mock
 
-import com.example.couponsapp.data.local.entities.CouponEntity
-import com.example.couponsapp.data.local.entities.DiscountEntity
-import com.example.couponsapp.data.local.entities.LimitsEntity
-import com.example.couponsapp.data.local.entities.RelatedProductEntity
+import com.example.couponsapp.data.local.entities.*
 import java.time.LocalDate
 
 object CouponEntitiesMock {
@@ -14,7 +11,7 @@ object CouponEntitiesMock {
             description = "Enjoy the discount in our fruit store for all the fresh fruit." +
                     " Vegetables are not included. The maximum discount is 6€",
             imageUrl = "https://content.fake.com/image.png",
-            isEnabled = false,
+            state = StateEntity.Disabled,
             date = LocalDate.now().plusDays(5).toString(),
             limits = LimitsEntity(title = "Limited to fruits", description = "Only one usage"),
             discount = DiscountEntity(value = 25, special = null),
@@ -53,7 +50,7 @@ object CouponEntitiesMock {
             title = "All kind of potatoes",
             description = "Discover all the varieties in your store!",
             imageUrl = "https://content.fake.com/image.png",
-            isEnabled = false,
+            state = StateEntity.Disabled,
             date = LocalDate.now().plusDays(3).toString(),
             limits = LimitsEntity(title = "Limited to 4kg", description = "Only one usage"),
             discount = DiscountEntity(value = 50, special = "Special coupon"),
@@ -66,7 +63,7 @@ object CouponEntitiesMock {
             title = "Fresh vegetables",
             description = "Enjoy the discount in our vegetables and stay healthy",
             imageUrl = "https://content.fake.com/image.png",
-            isEnabled = false,
+            state = StateEntity.Disabled,
             date = LocalDate.now().plusDays(8).toString(),
             limits = LimitsEntity(title = "Limited to vegetables", description = "Only one usage"),
             discount = DiscountEntity(value = 20, special = null),
@@ -105,7 +102,7 @@ object CouponEntitiesMock {
             title = "Bread and pastries",
             description = "Discount applicable in the bakery for freshly made products",
             imageUrl = "https://content.fake.com/image.png",
-            isEnabled = false,
+            state = StateEntity.Disabled,
             date = LocalDate.now().plusDays(6).toString(),
             limits = LimitsEntity(title = "Bakery section", description = "Only one usage"),
             discount = DiscountEntity(value = 20, special = null),
@@ -118,7 +115,7 @@ object CouponEntitiesMock {
             title = "Pizzas from Italy",
             description = "Enjoy amazing pizzas taken directly from Italy",
             imageUrl = "https://content.fake.com/image.png",
-            isEnabled = false,
+            state = StateEntity.Disabled,
             date = LocalDate.now().plusDays(1).toString(),
             limits = LimitsEntity(title = "Limited to 6 units", description = "Only one usage"),
             discount = DiscountEntity(value = 20, special = null),
