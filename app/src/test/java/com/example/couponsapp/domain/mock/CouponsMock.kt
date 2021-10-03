@@ -10,7 +10,7 @@ object CouponsMock {
         title = "Fresh fruits",
         description = "Enjoy the discount in our fruit store for all the fresh fruit." +
                 " Vegetables are not included. The maximum discount is 6€",
-        image = 1,
+        image = "https://content.fake.com/image.png",
         state = State.Disabled,
         expiration = LocalDate.now().plusDays(5),
         limits = Limits(title = "Limited to fruits", description = "Only one usage"),
@@ -19,27 +19,27 @@ object CouponsMock {
             RelatedProduct(
                 id = 0,
                 name = "Strawberries",
-                icon = 1
+                icon = "https://content.fake.com/image.png"
             ),
             RelatedProduct(
                 id = 1,
                 name = "Oranges",
-                icon = 1
+                icon = "https://content.fake.com/image.png"
             ),
             RelatedProduct(
                 id = 2,
                 name = "Bananas",
-                icon = 1
+                icon = "https://content.fake.com/image.png"
             ),
             RelatedProduct(
                 id = 3,
                 name = "Watermelons",
-                icon = 1
+                icon = "https://content.fake.com/image.png"
             ),
             RelatedProduct(
                 id = 4,
                 name = "Apples",
-                icon = 1
+                icon = "https://content.fake.com/image.png"
             )
         ),
         productCode = 11111111L,
@@ -49,7 +49,7 @@ object CouponsMock {
         id = 1L,
         title = "All kind of potatoes",
         description = "Discover all the varieties in your store!",
-        image = 1,
+        image = "https://content.fake.com/image.png",
         state = State.Disabled,
         expiration = LocalDate.now().minusDays(3),
         limits = Limits(title = "Limited to 4kg", description = "Only one usage"),
@@ -62,7 +62,7 @@ object CouponsMock {
         id = 2L,
         title = "Fresh vegetables",
         description = "Enjoy the discount in our vegetables and stay healthy",
-        image = 1,
+        image = "https://content.fake.com/image.png",
         state = State.Disabled,
         expiration = LocalDate.now().plusDays(8),
         limits = Limits(title = "Limited to vegetables", description = "Only one usage"),
@@ -71,27 +71,27 @@ object CouponsMock {
             RelatedProduct(
                 id = 0,
                 name = "Strawberries",
-                icon = 1
+                icon = "https://content.fake.com/image.png"
             ),
             RelatedProduct(
                 id = 1,
                 name = "Oranges",
-                icon = 1
+                icon = "https://content.fake.com/image.png"
             ),
             RelatedProduct(
                 id = 2,
                 name = "Bananas",
-                icon = 1
+                icon = "https://content.fake.com/image.png"
             ),
             RelatedProduct(
                 id = 3,
                 name = "Watermelons",
-                icon = 1
+                icon = "https://content.fake.com/image.png"
             ),
             RelatedProduct(
                 id = 4,
                 name = "Apples",
-                icon = 1
+                icon = "https://content.fake.com/image.png"
             )
         ),
         productCode = 33333333L,
@@ -101,7 +101,7 @@ object CouponsMock {
         id = 3L,
         title = "Bread and pastries",
         description = "Discount applicable in the bakery for freshly made products",
-        image = 1,
+        image = "https://content.fake.com/image.png",
         state = State.Disabled,
         expiration = LocalDate.now().plusDays(6),
         limits = Limits(title = "Bakery section", description = "Only one usage"),
@@ -115,7 +115,7 @@ object CouponsMock {
         id = 4L,
         title = "Pizzas from Italy",
         description = "Enjoy amazing pizzas taken directly from Italy",
-        image = 1,
+        image = "https://content.fake.com/image.png",
         state = State.Disabled,
         expiration = LocalDate.now().plusDays(1),
         limits = Limits(title = "Limited to 6 units", description = "Only one usage"),

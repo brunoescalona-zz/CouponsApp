@@ -1,13 +1,12 @@
 package com.example.couponsapp.domain.models
 
-import androidx.annotation.DrawableRes
 import java.time.LocalDate
 
 data class Coupon(
     val id: Long,
     val title: String,
     val description: String,
-    @DrawableRes val image: Int,
+    val image: String,
     val state: State,
     val expiration: LocalDate,
     val limits: Limits,
