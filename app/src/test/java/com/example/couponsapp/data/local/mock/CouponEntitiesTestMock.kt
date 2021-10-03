@@ -124,4 +124,12 @@ object CouponEntitiesTestMock {
         productCode = 55555555L,
         conditions = "Valid only until the end of the month. Valid only in Spain"
     )
+
+    val list = listOf(
+        coupon0,
+        coupon1,
+        coupon2,
+        coupon3,
+        coupon4
+    )
 }
