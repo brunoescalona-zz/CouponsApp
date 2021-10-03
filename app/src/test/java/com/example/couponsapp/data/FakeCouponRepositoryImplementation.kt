@@ -7,7 +7,6 @@ import com.example.couponsapp.domain.models.State
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.runBlocking
 
 class FakeCouponRepositoryImplementation : CouponRepository {
 
@@ -22,7 +21,7 @@ class FakeCouponRepositoryImplementation : CouponRepository {
             }
     }
 
-    override fun changeState(couponId: Long) {
+    override suspend fun changeState(couponId: Long) {
         val enabledCoupon = CouponsMock.list.find { it.id == couponId }
             ?.copy(state = State.Enabled)
 
@@ -31,8 +30,6 @@ class FakeCouponRepositoryImplementation : CouponRepository {
             .plus(enabledCoupon)
             .filterNotNull()
 
-        runBlocking {
-            couponStateFlow.emit(Result.success(couponList))
-        }
+        couponStateFlow.emit(Result.success(couponList))
     }
 }
