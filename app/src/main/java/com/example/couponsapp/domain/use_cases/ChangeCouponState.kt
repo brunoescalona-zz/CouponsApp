@@ -5,7 +5,7 @@ import com.example.couponsapp.domain.CouponRepository
 class ChangeCouponState(
     private val repository: CouponRepository
 ) {
-    operator fun invoke(couponId: Long) {
+    suspend operator fun invoke(couponId: Long) {
         return repository.changeState(couponId)
     }
 }

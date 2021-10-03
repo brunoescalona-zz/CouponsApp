@@ -9,5 +9,5 @@ interface CouponRepository {
 
     fun get(couponId: Long): Flow<Coupon?>
 
-    fun changeState(couponId: Long)
+    suspend fun changeState(couponId: Long)
 }
