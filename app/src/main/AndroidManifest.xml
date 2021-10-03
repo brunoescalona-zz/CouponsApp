@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CouponsApp">
         <activity
-            android:name=".MainActivity"
+            android:name=".presentation.coupons.list.CouponListActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

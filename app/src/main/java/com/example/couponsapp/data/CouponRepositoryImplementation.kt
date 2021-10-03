@@ -11,7 +11,7 @@ import com.example.couponsapp.domain.models.Coupon
 import com.example.couponsapp.domain.models.State
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
+import kotlinx.coroutines.flow.SharingStarted.Companion.Lazily
 import javax.inject.Inject
 
 class CouponRepositoryImplementation @Inject constructor(
@@ -26,7 +26,7 @@ class CouponRepositoryImplementation @Inject constructor(
             couponDao.getAll().collect { emit(it) }
         }
     }
-        .shareIn(externalScope, WhileSubscribed(5000))
+        .shareIn(externalScope, Lazily, 1)
         .map { list -> list.map { it.toDomain() } }
         .map { Result.success(it) }
         .flowOn(Dispatchers.Default)
@@ -46,9 +46,8 @@ class CouponRepositoryImplementation @Inject constructor(
     override suspend fun changeState(couponId: Long) {
         val localCoupon = get(couponId).firstOrNull()
         val pendingCoupon = localCoupon?.copy(state = State.Pending)
-        Log.d(TAG, "insert pending coupon $pendingCoupon -- STATE ${pendingCoupon?.state}")
+        Log.d(TAG, "insert pending coupon ${pendingCoupon?.id} -- STATE ${pendingCoupon?.state}")
         pendingCoupon?.toEntity()?.let { couponDao.insert(it) }
-
         delay((Math.random() * 1000).toLong()) // To emulate a network call
 
         val coupon = couponService
@@ -56,7 +55,7 @@ class CouponRepositoryImplementation @Inject constructor(
             .toDomain()
             .toEntity()
 
-        Log.d(TAG, "insert coupon with the updated state $coupon -- STATE ${coupon.state}")
+        Log.d(TAG, "insert coupon with the updated state ${coupon.id} -- STATE ${coupon.state}")
         couponDao.insert(coupon)
     }
 
