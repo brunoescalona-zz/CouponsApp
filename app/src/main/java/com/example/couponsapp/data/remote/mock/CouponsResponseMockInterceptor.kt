@@ -10,7 +10,7 @@ import okhttp3.ResponseBody.Companion.toResponseBody
 
 class CouponsResponseMockInterceptor(private val gson: Gson) : Interceptor {
 
-    private val mockCouponsResponseDto by lazy { CouponsResponseDtoMock.VALUE }
+    private var mockCouponsResponseDto = CouponsResponseDtoMock.VALUE
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val method = chain.request().method
@@ -20,7 +20,8 @@ class CouponsResponseMockInterceptor(private val gson: Gson) : Interceptor {
             REQUEST_METHOD_GET -> gson.toJson(mockCouponsResponseDto)
             REQUEST_METHOD_PUT -> {
                 val couponId = getCouponIdFromRequestUrl(chain)
-                val coupon = getCoupon(couponId)
+                val coupon = modifyCoupon(couponId)
+                updateCachedData(coupon)
                 gson.toJson(coupon)
             }
             else -> null
@@ -39,11 +40,19 @@ class CouponsResponseMockInterceptor(private val gson: Gson) : Interceptor {
         return pathSegments[pathSegments.size - 2].toLong()
     }
 
-    private fun getCoupon(id: Long): CouponDto {
+    private fun modifyCoupon(id: Long): CouponDto {
         val coupon = mockCouponsResponseDto.coupons
             .find { it.id == id } ?: throw IllegalStateException("")
-
         return coupon.copy(isEnabled = !coupon.isEnabled)
+    }
+
+    private fun updateCachedData(updatedCoupon: CouponDto) {
+        val listUpdated = mockCouponsResponseDto
+            .coupons
+            .filter { it.id != updatedCoupon.id }
+            .plus(updatedCoupon)
+
+        mockCouponsResponseDto = mockCouponsResponseDto.copy(coupons = listUpdated)
     }
 
     private fun mockSuccessfulResponse(

@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">CouponsApp</string>
+    <string name="button_enable">Enable</string>
+    <string name="button_enabled">Enabled</string>
+    <string name="button_loading">Loading</string>
+    <string name="app_title">%s Active coupons</string>
+    <string name="expiration_label">It will expire in %s days</string>
+    <string name="discount">Discount</string>
 </resources>
