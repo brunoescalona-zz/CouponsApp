@@ -12,8 +12,9 @@ import com.example.couponsapp.domain.models.State
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
+import javax.inject.Inject
 
-class CouponRepositoryImplementation(
+class CouponRepositoryImplementation @Inject constructor(
     private val couponService: CouponService,
     private val couponDao: CouponDao,
     externalScope: CoroutineScope
