@@ -5,7 +5,7 @@ import java.time.LocalDate
 
 object CouponsMock {
 
-    private val coupon0 = Coupon(
+    val coupon0 = Coupon(
         id = 0L,
         title = "Fresh fruits",
         description = "Enjoy the discount in our fruit store for all the fresh fruit." +
