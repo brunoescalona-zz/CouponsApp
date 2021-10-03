@@ -5,8 +5,9 @@ import com.example.couponsapp.domain.models.Coupon
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.time.LocalDate
+import javax.inject.Inject
 
-class GetValidCouponsByDate(
+class GetValidCouponsByDate @Inject constructor(
     private val repository: CouponRepository
 ) {
     operator fun invoke(): Flow<Result<List<Coupon>>> {
