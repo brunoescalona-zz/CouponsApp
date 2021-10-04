@@ -10,11 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.couponsapp.R
 import com.example.couponsapp.databinding.ItemCouponBinding
 import com.example.couponsapp.domain.models.Coupon
-import com.example.couponsapp.domain.models.State
+import com.example.couponsapp.presentation.coupons.util.styleButtonForState
 import com.example.couponsapp.presentation.coupons.util.toColorRes
 import com.example.couponsapp.presentation.coupons.util.toDarkColorRes
 import com.example.couponsapp.presentation.coupons.util.toDrawableRes
-import com.google.android.material.button.MaterialButton
 import java.time.LocalDate
 
 class CouponItemAdapter(
@@ -70,17 +69,6 @@ class CouponItemAdapter(
         this.coupons = coupons
         this.itemClick = itemClick
         this.itemButtonClick = itemButtonClick
-    }
-
-    private fun MaterialButton.styleButtonForState(couponState: State) {
-        val buttonText = when (couponState) {
-            State.Disabled -> R.string.button_enable
-            State.Enabled -> R.string.button_enabled
-            State.Pending -> R.string.button_loading
-        }
-        setText(buttonText)
-
-        isEnabled = couponState != State.Pending
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

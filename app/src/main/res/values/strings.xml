@@ -6,4 +6,10 @@
     <string name="app_title">%s Active coupons</string>
     <string name="expiration_label">It will expire in %s days</string>
     <string name="discount">Discount</string>
+    <string name="state_enabled">Enabled</string>
+    <string name="state_disabled">Disabled</string>
+    <string name="state_loading">Loading</string>
+    <string name="related_products">Related products</string>
+    <string name="product_code">Product code</string>
+    <string name="conditions">Availability and conditions</string>
 </resources>
