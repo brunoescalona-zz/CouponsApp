@@ -1,13 +1,11 @@
 package com.example.couponsapp.presentation.coupons.list
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.couponsapp.domain.models.State
 import com.example.couponsapp.domain.use_cases.ChangeCouponState
 import com.example.couponsapp.domain.use_cases.GetValidCouponsByDate
+import com.example.couponsapp.presentation.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -18,9 +16,11 @@ import javax.inject.Inject
 class CouponListViewModel @Inject constructor(
     getValidCouponsByDate: GetValidCouponsByDate,
     changeCouponState: ChangeCouponState
-) : ViewModel() {
+) : BaseViewModel<CouponListUiState>() {
 
-    val uiState: LiveData<CouponListUiState> = getValidCouponsByDate()
+    val uiAction = MutableSharedFlow<CouponListUiAction?>()
+
+    override val uiState: LiveData<CouponListUiState> = getValidCouponsByDate()
         .map { result ->
             if (result.isFailure) return@map CouponListUiState.Error
             val coupons = result.getOrNull()
@@ -28,7 +28,12 @@ class CouponListViewModel @Inject constructor(
             CouponListUiState.Ready(
                 activeCoupons = coupons.filter { it.state == State.Enabled }.count(),
                 coupons = coupons,
-                couponClick = { Log.d(TAG, "coupon click with id $it") },
+                couponClick = {
+                    Log.d(TAG, "coupon click with id $it")
+                    viewModelScope.launch(Dispatchers.Default) {
+                        uiAction.emit(CouponListUiAction.NavigateToDetail(it))
+                    }
+                },
                 stateCouponClick = {
                     Log.d(TAG, "state click coupon with id $it")
                     viewModelScope.launch(Dispatchers.Default) { changeCouponState(it) }
