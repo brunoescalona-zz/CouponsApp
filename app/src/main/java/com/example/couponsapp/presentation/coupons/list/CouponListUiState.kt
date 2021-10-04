@@ -1,8 +1,9 @@
 package com.example.couponsapp.presentation.coupons.list
 
 import com.example.couponsapp.domain.models.Coupon
+import com.example.couponsapp.presentation.UiState
 
-sealed class CouponListUiState {
+sealed class CouponListUiState : UiState {
     object Loading : CouponListUiState()
     object Error : CouponListUiState()
     object Empty : CouponListUiState()

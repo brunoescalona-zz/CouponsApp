@@ -5,6 +5,7 @@ import androidx.lifecycle.*
 import com.example.couponsapp.domain.models.State
 import com.example.couponsapp.domain.use_cases.ChangeCouponState
 import com.example.couponsapp.domain.use_cases.GetValidCouponsByDate
+import com.example.couponsapp.presentation.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -15,11 +16,11 @@ import javax.inject.Inject
 class CouponListViewModel @Inject constructor(
     getValidCouponsByDate: GetValidCouponsByDate,
     changeCouponState: ChangeCouponState
-) : ViewModel() {
+) : BaseViewModel<CouponListUiState>() {
 
     val uiAction = MutableSharedFlow<CouponListUiAction?>()
 
-    val uiState: LiveData<CouponListUiState> = getValidCouponsByDate()
+    override val uiState: LiveData<CouponListUiState> = getValidCouponsByDate()
         .map { result ->
             if (result.isFailure) return@map CouponListUiState.Error
             val coupons = result.getOrNull()

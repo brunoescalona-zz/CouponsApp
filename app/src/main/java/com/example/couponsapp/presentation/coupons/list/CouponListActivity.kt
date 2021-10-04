@@ -3,10 +3,10 @@ package com.example.couponsapp.presentation.coupons.list
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.couponsapp.R
 import com.example.couponsapp.databinding.ActivityCouponListBinding
+import com.example.couponsapp.presentation.BaseActivity
 import com.example.couponsapp.presentation.coupons.details.CouponDetailActivity
 import com.example.couponsapp.presentation.coupons.list.recycler.CouponItemAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -14,9 +14,9 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class CouponListActivity : AppCompatActivity() {
+class CouponListActivity : BaseActivity<CouponListUiState, CouponListViewModel>() {
 
-    private val viewModel: CouponListViewModel by viewModels()
+    override val viewModel: CouponListViewModel by viewModels()
 
     private lateinit var ui: ActivityCouponListBinding
     private val adapter by lazy { CouponItemAdapter() }
@@ -29,15 +29,6 @@ class CouponListActivity : AppCompatActivity() {
 
         ui.listContainer.adapter = adapter
 
-        viewModel.uiState.observe(this) { uiState ->
-            when (uiState) {
-                CouponListUiState.Empty -> Log.d(TAG, "display empty view")
-                CouponListUiState.Error -> Log.d(TAG, "display error view")
-                CouponListUiState.Loading -> Log.d(TAG, "display loading view")
-                is CouponListUiState.Ready -> updateReadyUiState(uiState)
-            }
-        }
-
         lifecycleScope.launch {
             viewModel.uiAction.collect { uiAction ->
                 Log.d(TAG, "uiAction received $uiAction")
@@ -45,6 +36,15 @@ class CouponListActivity : AppCompatActivity() {
                     is CouponListUiAction.NavigateToDetail -> navigateToDetailView(uiAction.couponId)
                 }
             }
+        }
+    }
+
+    override fun onUiState(state: CouponListUiState) {
+        when (state) {
+            CouponListUiState.Empty -> Log.d(TAG, "display empty view")
+            CouponListUiState.Error -> Log.d(TAG, "display error view")
+            CouponListUiState.Loading -> Log.d(TAG, "display loading view")
+            is CouponListUiState.Ready -> updateReadyUiState(state)
         }
     }
 
@@ -71,4 +71,5 @@ class CouponListActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "CouponListActivity"
     }
+
 }
