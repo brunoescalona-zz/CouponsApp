@@ -8,6 +8,7 @@
     tools:context=".presentation.coupons.details.CouponDetailActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:background="@android:color/transparent">

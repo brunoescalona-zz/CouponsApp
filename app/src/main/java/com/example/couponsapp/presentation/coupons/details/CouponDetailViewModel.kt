@@ -1,5 +1,6 @@
 package com.example.couponsapp.presentation.coupons.details
 
+import android.graphics.Color
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
@@ -25,23 +26,32 @@ class CouponDetailViewModel @Inject constructor(
     private val couponId by lazy {
         savedStateHandle.get<Long>(COUPON_ID) ?: throw IllegalStateException()
     }
+    private val scrollState = MutableStateFlow(0)
 
-    override val uiState: LiveData<CouponDetailUiState> = getCoupon(couponId = couponId)
-        .map { coupon ->
-            if (coupon == null) throw IllegalStateException()
-            CouponDetailUiState(
-                coupon = coupon,
-                stateCouponClick = {
-                    Log.d(TAG, "state click coupon with id ${coupon.id}")
-                    viewModelScope.launch(Dispatchers.Default) { changeCouponState(coupon.id) }
-                }
-            )
-        }
+    override val uiState: LiveData<CouponDetailUiState> = combine(
+        getCoupon(couponId = couponId),
+        scrollState
+    ) { coupon, scrollPosition ->
+        if (coupon == null) throw IllegalStateException()
+        CouponDetailUiState(
+            toolbarTitle = if (scrollPosition == 0) coupon.title else "",
+            toolbarColor = if (scrollPosition == 0) Color.WHITE else Color.TRANSPARENT,
+            coupon = coupon,
+            stateCouponClick = {
+                Log.d(TAG, "state click coupon with id ${coupon.id}")
+                viewModelScope.launch(Dispatchers.Default) { changeCouponState(coupon.id) }
+            }
+        )
+    }
         .distinctUntilChanged()
         .flowOn(Dispatchers.Default)
         .onEach { Log.d(TAG, "ui state changed to $it") }
         .catch { Log.e(TAG, "error in the ui state flow with $it") }
         .asLiveData()
+
+    fun updateScroll(scroll: Int) {
+        viewModelScope.launch { scrollState.emit(scroll) }
+    }
 
     companion object {
         private const val TAG = "CouponDetailViewModel"

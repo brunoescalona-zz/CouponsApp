@@ -16,11 +16,15 @@ import com.example.couponsapp.domain.models.State
 import com.example.couponsapp.presentation.BaseActivity
 import com.example.couponsapp.presentation.coupons.details.recycler.RelatedProductItemAdapter
 import com.example.couponsapp.presentation.coupons.util.*
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDate
 
+
 @AndroidEntryPoint
-class CouponDetailActivity : BaseActivity<CouponDetailUiState, CouponDetailViewModel>() {
+class CouponDetailActivity : BaseActivity<CouponDetailUiState, CouponDetailViewModel>(),
+    OnOffsetChangedListener {
 
     override val viewModel: CouponDetailViewModel by viewModels()
     private lateinit var ui: ActivityCouponDetailBinding
@@ -30,9 +34,10 @@ class CouponDetailActivity : BaseActivity<CouponDetailUiState, CouponDetailViewM
         ui = ActivityCouponDetailBinding.inflate(layoutInflater)
         setContentView(ui.root)
         setSupportActionBar(ui.toolbar)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        ui.appBar.addOnOffsetChangedListener(this)
     }
 
     override fun onUiState(state: CouponDetailUiState) {
@@ -55,6 +60,9 @@ class CouponDetailActivity : BaseActivity<CouponDetailUiState, CouponDetailViewM
 
         ui.productCodeValue.text = state.coupon.productCode.toString()
         ui.conditionsValue.text = state.coupon.conditions
+
+        ui.collapsingToolbarLayout.title = state.toolbarTitle
+        ui.toolbar.setBackgroundColor(state.toolbarColor)
     }
 
     private fun configureDiscountBanner(discount: Discount) {
@@ -87,6 +95,10 @@ class CouponDetailActivity : BaseActivity<CouponDetailUiState, CouponDetailViewM
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) finish()
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
+        viewModel.updateScroll(appBarLayout.totalScrollRange + verticalOffset)
     }
 
     companion object {
