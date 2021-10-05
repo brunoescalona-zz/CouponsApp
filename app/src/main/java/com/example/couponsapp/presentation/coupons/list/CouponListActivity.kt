@@ -3,7 +3,9 @@ package com.example.couponsapp.presentation.coupons.list
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.couponsapp.R
 import com.example.couponsapp.databinding.ActivityCouponListBinding
 import com.example.couponsapp.presentation.BaseActivity
@@ -30,10 +32,12 @@ class CouponListActivity : BaseActivity<CouponListUiState, CouponListViewModel>(
         ui.listContainer.adapter = adapter
 
         lifecycleScope.launch {
-            viewModel.uiAction.collect { uiAction ->
-                Log.d(TAG, "uiAction received $uiAction")
-                when (uiAction) {
-                    is CouponListUiAction.NavigateToDetail -> navigateToDetailView(uiAction.couponId)
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiAction.collect { uiAction ->
+                    Log.d(TAG, "uiAction received $uiAction")
+                    when (uiAction) {
+                        is CouponListUiAction.NavigateToDetail -> navigateToDetailView(uiAction.couponId)
+                    }
                 }
             }
         }

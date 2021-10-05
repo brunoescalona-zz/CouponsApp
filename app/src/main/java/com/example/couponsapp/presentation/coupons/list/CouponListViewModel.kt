@@ -18,9 +18,9 @@ class CouponListViewModel @Inject constructor(
     changeCouponState: ChangeCouponState
 ) : BaseViewModel<CouponListUiState>() {
 
-    val uiAction = MutableSharedFlow<CouponListUiAction?>()
+    val uiAction = MutableSharedFlow<CouponListUiAction>()
 
-    override val uiState: LiveData<CouponListUiState> = getValidCouponsByDate()
+    override val uiState: Flow<CouponListUiState> = getValidCouponsByDate()
         .map { result ->
             if (result.isFailure) return@map CouponListUiState.Error
             val coupons = result.getOrNull()
@@ -45,7 +45,6 @@ class CouponListViewModel @Inject constructor(
         .flowOn(Dispatchers.Default)
         .onEach { Log.d(TAG, "ui state changed to $it") }
         .catch { Log.e(TAG, "error in the ui state flow with $it") }
-        .asLiveData()
 
     companion object {
         private const val TAG = "CouponListViewModel"

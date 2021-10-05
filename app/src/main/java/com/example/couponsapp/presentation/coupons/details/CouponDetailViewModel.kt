@@ -2,9 +2,7 @@ package com.example.couponsapp.presentation.coupons.details
 
 import android.graphics.Color
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.couponsapp.domain.use_cases.ChangeCouponState
 import com.example.couponsapp.domain.use_cases.GetCoupon
@@ -28,7 +26,7 @@ class CouponDetailViewModel @Inject constructor(
     }
     private val scrollState = MutableStateFlow(0)
 
-    override val uiState: LiveData<CouponDetailUiState> = combine(
+    override val uiState: Flow<CouponDetailUiState> = combine(
         getCoupon(couponId = couponId),
         scrollState
     ) { coupon, scrollPosition ->
@@ -47,7 +45,6 @@ class CouponDetailViewModel @Inject constructor(
         .flowOn(Dispatchers.Default)
         .onEach { Log.d(TAG, "ui state changed to $it") }
         .catch { Log.e(TAG, "error in the ui state flow with $it") }
-        .asLiveData()
 
     fun updateScroll(scroll: Int) {
         viewModelScope.launch { scrollState.emit(scroll) }
