@@ -10,6 +10,14 @@ fun Int.toColorRes(): Int {
     }
 }
 
+fun Int.toCouponDrawable(): Int {
+    return when {
+        this <= 20 -> R.drawable.coupon_banner_green
+        this <= 30 -> R.drawable.coupon_banner_yellow
+        else -> R.drawable.coupon_banner_red
+    }
+}
+
 fun Int.toDarkColorRes(): Int {
     return when {
         this <= 20 -> R.color.green_dark

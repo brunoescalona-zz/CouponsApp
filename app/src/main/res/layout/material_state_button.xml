@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/disabled"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton.Custom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        tools:visibility="visible" />
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/blue"
+        android:padding="10dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/enabled"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton.Custom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_enabled"
+        android:visibility="invisible"
+        tools:visibility="visible" />
+
+</merge>
