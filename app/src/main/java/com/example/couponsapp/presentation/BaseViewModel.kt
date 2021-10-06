@@ -1,9 +1,9 @@
 package com.example.couponsapp.presentation
 
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 
 abstract class BaseViewModel<US : UiState> : ViewModel() {
 
-    abstract val uiState: Flow<US>
+    abstract val uiState: StateFlow<US>
 }
