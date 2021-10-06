@@ -1,19 +1,24 @@
 package com.example.couponsapp.presentation.coupons.list.recycler
 
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.Explode
+import androidx.transition.TransitionManager
 import com.example.couponsapp.R
 import com.example.couponsapp.databinding.ItemCouponBinding
 import com.example.couponsapp.domain.models.Coupon
-import com.example.couponsapp.presentation.coupons.util.styleButtonForState
-import com.example.couponsapp.presentation.coupons.util.toColorRes
+import com.example.couponsapp.domain.models.State
+import com.example.couponsapp.presentation.coupons.util.toCouponDrawable
 import com.example.couponsapp.presentation.coupons.util.toDarkColorRes
 import com.example.couponsapp.presentation.coupons.util.toDrawableRes
+import com.google.android.material.imageview.ShapeableImageView
+import com.google.android.material.shape.CornerFamily
 import java.time.LocalDate
 
 class CouponItemAdapter(
@@ -36,23 +41,32 @@ class CouponItemAdapter(
 
             binding.title.text = coupon.title
             binding.image.setImageResource(coupon.image.toDrawableRes())
-            binding.button.styleButtonForState(coupon.state)
+            binding.stateButton.setState(coupon.state) { itemButtonClick(coupon.id) }
             binding.expiration.text = context.getString(
                 R.string.expiration_label,
                 LocalDate.now().until(coupon.expiration).days.toString()
             )
             binding.root.setOnClickListener { itemClick(coupon.id) }
-            binding.button.setOnClickListener { itemButtonClick(coupon.id) }
 
-            binding.couponDiscountDetails.isInvisible = coupon.discount.special == null
-            binding.discountDescription.text = coupon.discount.special
-            binding.couponDiscountDetails.setBackgroundColor(
-                ContextCompat.getColor(context, coupon.discount.value.toDarkColorRes())
-            )
+            if (coupon.discount.special == null) {
+                binding.discountDescription.isInvisible = true
+                binding.discountContainer.background = null
+            } else {
+                binding.discountContainer.setBackgroundColor(
+                    ContextCompat.getColor(context, coupon.discount.value.toDarkColorRes())
+                )
+                binding.discountDescription.isInvisible = false
+                binding.discountDescription.text = coupon.discount.special
+            }
             binding.discount.text = "${coupon.discount.value}%"
-            binding.couponDiscountValue.setBackgroundColor(
-                ContextCompat.getColor(context, coupon.discount.value.toColorRes())
+            binding.couponDiscountValue.setBackgroundResource(
+                coupon.discount.value.toCouponDrawable()
             )
+            if (coupon.state == State.Enabled) {
+                binding.stateMark.displayAnimated()
+            } else {
+                binding.stateMark.isVisible = false
+            }
         }
     }
 
@@ -71,8 +85,24 @@ class CouponItemAdapter(
         this.itemButtonClick = itemButtonClick
     }
 
+    private fun ShapeableImageView.displayAnimated() {
+        shapeAppearanceModel = shapeAppearanceModel
+            .toBuilder()
+            .setBottomRightCorner(CornerFamily.ROUNDED, 0f)
+            .setTopLeftCorner(CornerFamily.ROUNDED, 0f)
+            .setBottomLeftCorner(CornerFamily.ROUNDED, 20.dpToPx().toFloat())
+            .build()
+
+        val transition = Explode()
+        transition.duration = 400
+        TransitionManager.beginDelayedTransition(this.parent as ViewGroup, transition)
+        isVisible = true
+    }
+
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = ItemCouponBinding.bind(view)
     }
+
+    fun Int.dpToPx() = (this * Resources.getSystem().displayMetrics.density).toInt()
 
 }

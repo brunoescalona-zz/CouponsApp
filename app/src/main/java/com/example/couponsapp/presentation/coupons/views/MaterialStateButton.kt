@@ -2,7 +2,6 @@ package com.example.couponsapp.presentation.coupons.views
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.core.view.isInvisible
@@ -22,7 +21,6 @@ class MaterialStateButton : FrameLayout {
     private val ui = MaterialStateButtonBinding.inflate(LayoutInflater.from(context), this)
 
     fun setState(state: State, onClick: () -> Unit) {
-        Log.d("xyz", "state $state")
         when (state) {
             State.Disabled -> setDisabledButton(onClick)
             State.Enabled -> setEnabledButton(onClick)

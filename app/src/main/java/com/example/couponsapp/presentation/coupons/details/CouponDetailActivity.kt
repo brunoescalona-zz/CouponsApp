@@ -14,7 +14,7 @@ import com.example.couponsapp.domain.models.Discount
 import com.example.couponsapp.presentation.BaseActivity
 import com.example.couponsapp.presentation.coupons.details.recycler.RelatedProductItemAdapter
 import com.example.couponsapp.presentation.coupons.util.text
-import com.example.couponsapp.presentation.coupons.util.toCouponDrawable
+import com.example.couponsapp.presentation.coupons.util.toCouponBannerDrawable
 import com.example.couponsapp.presentation.coupons.util.toDarkColorRes
 import com.example.couponsapp.presentation.coupons.util.toDrawableRes
 import com.google.android.material.appbar.AppBarLayout
@@ -81,7 +81,7 @@ class CouponDetailActivity : BaseActivity<CouponDetailUiState, CouponDetailViewM
             ui.discountSpecial.isVisible = true
         }
         val darkColor = ContextCompat.getColor(this, discount.value.toDarkColorRes())
-        ui.couponBannerBackground.setBackgroundResource(discount.value.toCouponDrawable())
+        ui.couponBannerBackground.setBackgroundResource(discount.value.toCouponBannerDrawable())
         ui.discountSpecial.setBackgroundColor(darkColor)
     }
 
