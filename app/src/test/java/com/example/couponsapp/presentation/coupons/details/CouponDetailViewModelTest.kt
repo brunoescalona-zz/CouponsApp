@@ -44,9 +44,10 @@ class CouponDetailViewModelTest {
     @Test
     fun `when initialize the view model then get the coupon`() = runBlocking {
         viewModel.uiState
+            .drop(1)
             .take(1)
             .collect {
-                assertThat(it.coupon).isEqualTo(CouponsMock.coupon0)
+                assertThat((it as CouponDetailUiState.Ready).coupon).isEqualTo(CouponsMock.coupon0)
             }
     }
 
@@ -57,10 +58,10 @@ class CouponDetailViewModelTest {
             changeCouponState(0)
         }
         viewModel.uiState
-            .drop(1)
+            .drop(2)
             .take(1)
             .collect {
-                assertThat(it.coupon.state).isEqualTo(State.Enabled)
+                assertThat((it as CouponDetailUiState.Ready).coupon.state).isEqualTo(State.Enabled)
             }
     }
 }

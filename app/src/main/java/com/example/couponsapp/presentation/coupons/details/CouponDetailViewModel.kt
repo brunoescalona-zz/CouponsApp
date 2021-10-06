@@ -26,12 +26,12 @@ class CouponDetailViewModel @Inject constructor(
     }
     private val scrollState = MutableStateFlow(0)
 
-    override val uiState: Flow<CouponDetailUiState> = combine(
+    override val uiState: StateFlow<CouponDetailUiState> = combine(
         getCoupon(couponId = couponId),
         scrollState
     ) { coupon, scrollPosition ->
         if (coupon == null) throw IllegalStateException()
-        CouponDetailUiState(
+        CouponDetailUiState.Ready(
             toolbarTitle = if (scrollPosition == 0) coupon.title else "",
             toolbarColor = if (scrollPosition == 0) Color.WHITE else Color.TRANSPARENT,
             coupon = coupon,
@@ -45,6 +45,7 @@ class CouponDetailViewModel @Inject constructor(
         .flowOn(Dispatchers.Default)
         .onEach { Log.d(TAG, "ui state changed to $it") }
         .catch { Log.e(TAG, "error in the ui state flow with $it") }
+        .stateIn(viewModelScope, SharingStarted.Lazily, CouponDetailUiState.Loading)
 
     fun updateScroll(scroll: Int) {
         viewModelScope.launch { scrollState.emit(scroll) }

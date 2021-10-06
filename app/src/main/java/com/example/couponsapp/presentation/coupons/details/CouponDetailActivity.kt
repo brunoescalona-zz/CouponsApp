@@ -41,6 +41,13 @@ class CouponDetailActivity : BaseActivity<CouponDetailUiState, CouponDetailViewM
     }
 
     override fun onUiState(state: CouponDetailUiState) {
+        when (state) {
+            CouponDetailUiState.Loading -> Log.d(TAG, "display loading view")
+            is CouponDetailUiState.Ready -> updateReadyUiState(state)
+        }
+    }
+
+    private fun updateReadyUiState(state: CouponDetailUiState.Ready) {
         Log.d(TAG, "display the detail coupon ${state.coupon}")
         ui.banner.setImageResource(state.coupon.image.toDrawableRes())
         configureDiscountBanner(state.coupon.discount)
