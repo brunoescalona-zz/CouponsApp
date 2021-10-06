@@ -79,7 +79,7 @@
                 android:orientation="vertical"
                 android:padding="8dp"
                 android:visibility="invisible"
-                tools:background="@color/teal_200"
+                tools:background="@color/red_dark"
                 tools:visibility="visible">
 
                 <TextView
@@ -100,7 +100,7 @@
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:padding="8dp"
-                tools:background="@color/purple_200">
+                tools:background="@color/red">
 
                 <TextView
                     android:id="@+id/discount"
