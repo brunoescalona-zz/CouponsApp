@@ -1,6 +1,7 @@
 package com.example.couponsapp.presentation.coupons.list.recycler
 
 import android.content.res.Resources
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,29 +40,35 @@ class CouponItemAdapter(
 
             val context = binding.root.context
 
+            // Title and expiration date
             binding.title.text = coupon.title
-            binding.image.setImageResource(coupon.image.toDrawableRes())
-            binding.stateButton.setState(coupon.state) { itemButtonClick(coupon.id) }
             binding.expiration.text = context.getString(
                 R.string.expiration_label,
                 LocalDate.now().until(coupon.expiration).days.toString()
             )
+            // Image
+            binding.image.setImageResource(coupon.image.toDrawableRes())
+            // State button
+            binding.stateButton.setState(coupon.state) { itemButtonClick(coupon.id) }
+            // Item click
             binding.root.setOnClickListener { itemClick(coupon.id) }
 
+            // Discount coupon configuration
             if (coupon.discount.special == null) {
-                binding.discountDescription.isInvisible = true
-                binding.discountContainer.background = null
+                binding.discountDescription.text = ""
+                binding.discountContainer.setBackgroundColor(Color.TRANSPARENT)
             } else {
                 binding.discountContainer.setBackgroundColor(
                     ContextCompat.getColor(context, coupon.discount.value.toDarkColorRes())
                 )
-                binding.discountDescription.isInvisible = false
                 binding.discountDescription.text = coupon.discount.special
             }
             binding.discount.text = "${coupon.discount.value}%"
             binding.couponDiscountValue.setBackgroundResource(
                 coupon.discount.value.toCouponDrawable()
             )
+
+            // State check mark
             if (coupon.state == State.Enabled) {
                 binding.stateMark.displayAnimated()
             } else {
@@ -103,6 +110,5 @@ class CouponItemAdapter(
         val binding = ItemCouponBinding.bind(view)
     }
 
-    fun Int.dpToPx() = (this * Resources.getSystem().displayMetrics.density).toInt()
-
+    private fun Int.dpToPx() = (this * Resources.getSystem().displayMetrics.density).toInt()
 }

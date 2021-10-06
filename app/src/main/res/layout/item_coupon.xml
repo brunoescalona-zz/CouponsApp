@@ -90,7 +90,6 @@
                 android:layout_weight="1"
                 android:ellipsize="end"
                 android:gravity="center"
-                android:visibility="invisible"
                 tools:text="Special coupon" />
 
             <LinearLayout
