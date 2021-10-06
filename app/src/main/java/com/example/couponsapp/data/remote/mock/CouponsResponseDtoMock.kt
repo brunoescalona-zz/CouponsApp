@@ -20,27 +20,27 @@ object CouponsResponseDtoMock {
                 relatedProducts = listOf(
                     RelatedProductDto(
                         id = 0,
-                        name = "Strawberries",
+                        name = "Strawberry",
                         iconUrl = "https://content.fake.com/icon0"
                     ),
                     RelatedProductDto(
                         id = 1,
-                        name = "Oranges",
+                        name = "Orange",
                         iconUrl = "https://content.fake.com/icon1"
                     ),
                     RelatedProductDto(
                         id = 2,
-                        name = "Bananas",
+                        name = "Banana",
                         iconUrl = "https://content.fake.com/icon2"
                     ),
                     RelatedProductDto(
                         id = 3,
-                        name = "Watermelons",
+                        name = "Watermelon",
                         iconUrl = "https://content.fake.com/icon3"
                     ),
                     RelatedProductDto(
                         id = 4,
-                        name = "Apples",
+                        name = "Apple",
                         iconUrl = "https://content.fake.com/icon4"
                     )
                 ),

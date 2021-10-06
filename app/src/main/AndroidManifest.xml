@@ -14,9 +14,11 @@
         android:theme="@style/Theme.CouponsApp">
         <activity
             android:name=".presentation.coupons.details.CouponDetailActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".presentation.coupons.list.CouponListActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
