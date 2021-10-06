@@ -52,26 +52,12 @@ class CouponDetailActivity : BaseActivity<CouponDetailUiState, CouponDetailViewM
         Log.d(TAG, "display the detail coupon ${state.coupon}")
         ui.banner.setImageResource(state.coupon.image.toDrawableRes())
         configureDiscountBanner(state.coupon.discount)
-        ui.stateButton.setState(state.coupon.state, state.stateCouponClick)
-        ui.stateText.setText(state.coupon.state.text())
-        ui.title.text = state.coupon.title
-        ui.description.text = state.coupon.description
-        ui.expiration.text = getString(
-            R.string.expiration_label,
-            LocalDate.now().until(state.coupon.expiration).days.toString()
-        )
-
-        state.coupon.relatedProducts?.let {
-            ui.relatedProductsList.adapter = RelatedProductItemAdapter(it)
-            ui.relatedProducts.isVisible = true
-        }
-
-        ui.limits.setText(state.coupon.limits.title, state.coupon.limits.description)
-        ui.product.setText(getString(R.string.product_code), state.coupon.productCode.toString())
-        ui.conditions.setText(getString(R.string.conditions), state.coupon.conditions)
-
-        ui.collapsingToolbarLayout.title = state.toolbarTitle
-        ui.toolbar.setBackgroundColor(state.toolbarColor)
+        configureState(state)
+        configureMainTitle(state)
+        configureExpirationDate(state)
+        configureRelatedProducts(state)
+        configureDetails(state)
+        configureToolbar(state)
     }
 
     private fun configureDiscountBanner(discount: Discount) {
@@ -83,6 +69,41 @@ class CouponDetailActivity : BaseActivity<CouponDetailUiState, CouponDetailViewM
         val darkColor = ContextCompat.getColor(this, discount.value.toDarkColorRes())
         ui.couponBannerBackground.setBackgroundResource(discount.value.toCouponBannerDrawable())
         ui.discountSpecial.setBackgroundColor(darkColor)
+    }
+
+    private fun configureState(state: CouponDetailUiState.Ready) {
+        ui.stateButton.setState(state.coupon.state, state.stateCouponClick)
+        ui.stateText.setText(state.coupon.state.text())
+    }
+
+    private fun configureMainTitle(state: CouponDetailUiState.Ready) {
+        ui.title.text = state.coupon.title
+        ui.description.text = state.coupon.description
+    }
+
+    private fun configureExpirationDate(state: CouponDetailUiState.Ready) {
+        ui.expiration.text = getString(
+            R.string.expiration_label,
+            LocalDate.now().until(state.coupon.expiration).days.toString()
+        )
+    }
+
+    private fun configureRelatedProducts(state: CouponDetailUiState.Ready) {
+        state.coupon.relatedProducts?.let {
+            ui.relatedProductsList.adapter = RelatedProductItemAdapter(it)
+            ui.relatedProducts.isVisible = true
+        }
+    }
+
+    private fun configureDetails(state: CouponDetailUiState.Ready) {
+        ui.limits.setText(state.coupon.limits.title, state.coupon.limits.description)
+        ui.product.setText(getString(R.string.product_code), state.coupon.productCode.toString())
+        ui.conditions.setText(getString(R.string.conditions), state.coupon.conditions)
+    }
+
+    private fun configureToolbar(state: CouponDetailUiState.Ready) {
+        ui.collapsingToolbarLayout.title = state.toolbarTitle
+        ui.toolbar.setBackgroundColor(state.toolbarColor)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
