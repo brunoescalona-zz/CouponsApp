@@ -5,6 +5,20 @@ Android app to deliver coupons to save some money while shopping :purse:
 The project will be managed from the
 [project board](https://github.com/brunoescalona/CouponsApp/projects/1)
 
+## Getting started
+
+The app will display the coupons and the detail
+
+<img src="images/app_demo.gif" width=30% height=30%>
+
+Run tests:
+- `./gradlew test`
+- `./gradlew connectedAndroidTest`
+
+Build bundle
+- `./gradlew bundleDebug`
+
+
 ## Requirements
 
 ### Coupon list
