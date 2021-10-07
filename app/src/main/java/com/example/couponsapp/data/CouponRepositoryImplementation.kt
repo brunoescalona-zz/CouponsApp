@@ -29,6 +29,7 @@ class CouponRepositoryImplementation @Inject constructor(
         .shareIn(externalScope, Lazily, 1)
         .map { list -> list.map { it.toDomain() } }
         .map { Result.success(it) }
+        .catch { emit(Result.failure(it)) }
         .flowOn(Dispatchers.Default)
         .distinctUntilChanged()
 
@@ -50,13 +51,19 @@ class CouponRepositoryImplementation @Inject constructor(
         pendingCoupon?.toEntity()?.let { couponDao.insert(it) }
         delay((Math.random() * 1000).toLong()) // To emulate a network call
 
-        val coupon = couponService
-            .putCouponState(couponId)
-            .toDomain()
-            .toEntity()
+        try {
+            val coupon = couponService
+                .putCouponState(couponId)
+                .toDomain()
+                .toEntity()
+            Log.d(TAG, "insert coupon with the updated state ${coupon.id} -- STATE ${coupon.state}")
 
-        Log.d(TAG, "insert coupon with the updated state ${coupon.id} -- STATE ${coupon.state}")
-        couponDao.insert(coupon)
+            couponDao.insert(coupon)
+        } catch (exception: Exception) {
+            // if the request failed set the state to the default value
+            localCoupon?.toEntity()?.let { couponDao.insert(it) }
+            Log.d(TAG, "put coupon state failed with $exception")
+        }
     }
 
     private suspend fun updateCouponList() {
